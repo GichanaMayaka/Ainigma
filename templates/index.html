@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="Gichana" content="">
+    <link href="/media/img/euclidcube.jpg" rel="icon">
+
+    <title>Home | Ainigma Surveys</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/media/css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/media/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!-- Navigation Bar-->
+    {% if not user.is_authenticated %}
+        <a id="menu-toggle" href="#" class="btn btn-danger btn-lg toggle"><i class="fa fa-bars"></i></a>
+    {% else %}
+        <a id="menu-toggle" href="#" class="btn btn-info btn-lg toggle"><i class="fa fa-bars"></i></a>
+    {% endif %}
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick=$("#menu-close").click();>Navigate</a>
+            </li>
+            <li>
+                <a href="#top" onclick=$("#menu-close").click();>Home</a>
+            </li>
+            <li>
+                <a href="#about" onclick=$("#menu-close").click();>About</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url survey_detail 1 %}" onclick=$("#menu-close").click();>Take Survey</a>
+                </li>
+                <li>
+                    <a href="/admin/" onclick=$("#menu-close").click();>Admin</a>
+                </li>
+                <li>
+                    <a href="{% url logout %}" onclick=$("#menu-close").click();>Logout</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url login %}" onclick=$("#menu-close").click();>Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1>Ainigma Surveys</h1>
+            <h3>Surveys made Simple</h3>
+            <br>
+            {% if not user.is_authenticated %}
+                <a href="{% url register %}" class="btn btn-danger btn-lg"> Register to Begin</a>
+            {% else %}
+                    <a href="{% url survey_list %}" class="btn btn-info btn-lg"> Start Survey</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>A Simple Survey-Conducting Web Application.</h2>
+                    <p class="lead">Surveys a few clicks away.</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Our Services</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Survey Creation</strong>
+                                </h4>
+                                <p>Survey Creation.</p>
+                                <a href="#" class="btn btn-disabled">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Survey Editing</strong>
+                                </h4>
+                                <p>Survey Editing.</p>
+                                <a href="#" class="btn btn-disabled">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Callout -->
+    <aside class="callout">
+        <div class="text-vertical-center">
+            <h1>Surveys Made Simple</h1>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Ainigma Surveys</strong>
+                    </h4>
+                    <p>Multimedia University of Kenya</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-phone fa-fw"></i> 0708 993 268</li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:gichanamayaka@gmail.com">gichanamayaka@gmail.com</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="http://www.twitter.com/gichana_me"><i class="fa fa-twitter-square fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="http://www.instagram.com"><i class="fa fa-instagram fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="http://www.pinterest.com"><i class="fa fa-pinterest-square fa-3x fa-fw"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                    <p class="text-muted">Built by <a href="http://www.twitter.com/gichana_me">Gichana and the Machines</a></p>
+                </div>
+            </div>
+        </div>
+        {% if not user.is_authenticated %}
+            <a id="to-top" href="#top" class="btn btn-danger btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+        {% else %}
+            <a id="to-top" href="#top" class="btn btn-info btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+        {% endif %}
+    </footer>
+
+    <!-- jQuery -->
+    <script src="/media/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/media/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    //#to-top button appears after scrolling
+    var fixed = false;
+    $(document).scroll(function() {
+        if ($(this).scrollTop() > 250) {
+            if (!fixed) {
+                fixed = true;
+                // $('#to-top').css({position:'fixed', display:'block'});
+                $('#to-top').show("slow", function() {
+                    $('#to-top').css({
+                        position: 'fixed',
+                        display: 'block'
+                    });
+                });
+            }
+        } else {
+            if (fixed) {
+                fixed = false;
+                $('#to-top').hide("slow", function() {
+                    $('#to-top').css({
+                        display: 'none'
+                    });
+                });
+            }
+        }
+    });
+    // Disable Google Maps scrolling
+    // See http://stackoverflow.com/a/25904582/1607849
+    // Disable scroll zooming and bind back the click event
+    var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+    }
+    var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+    $('.map').on('click', onMapClickHandler);
+    </script>
+
+</body>
+
+</html>

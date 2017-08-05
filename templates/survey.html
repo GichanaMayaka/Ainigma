@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load survey_extras %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<!--<h1 class="text text-center">Welcome to {{survey.survey_title|title}}</h1>
+<div class="survey-description text text-justify">
+	{{survey.description|safe}}
+</div>
+-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-default">
+            <p class="navbar-brand">{{ survey.survey_title|title }} Survey</p>
+        </div>
+        <div>
+            <!--Right Align-->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Ainigma Surveys <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url home %}">Home</a></li>
+                        <li><a href="{% url survey_detail 1 %}">Take Survey</a></li>
+                        <li class="divider"></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url logout %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url login %}">Login</a></li>
+                        {% endif %}
+                        <li><a href="{% url register %}">Register</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 20px;">
+    <div class="row-fluid">
+        <div class="col-md-8 col-md-offset-2">
+                <form action="/survey/{{ survey.id }}/" method="post" role="form" class="bs-example bs-example-form" style="margin: 60px;">
+                    {% csrf_token %}
+
+                    <!--Comment Sections Metadata Panel-->
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Comments</a>
+                                </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body field-wrapper">
+                                {{ response_form.comments.errors }}
+                                <div class="form-field-body">{{ response_form.comments|add_class:"form-control" }}</div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                <!--Hidden inputs rendering-->
+                <div>
+                    {% for hidden in response_form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                </div>
+
+                <!--Survey Questions Panel-->
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            {% for category in categories %}
+                                <h4 class="panel-title">
+                                    <p>{{ category|title }} Questions</p>
+                                </h4>
+                        </div>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        {% for field in response_form.visible_fields %}
+                            {% if field.field.widget.attrs.category == category %}
+                                <ol class="list-group">
+                                <!--The counter object keeps count of the values in the for loop-->
+                                    <li style="margin: auto;" value="{% counter %}" class="list-unstyled">
+                                        {% if field.field.required %}
+                                        <div class="field-wrapper question-required" style="background: #ffffff">
+                                            {{ field.errors }}
+                                            <div class="input-group">
+                                                <span class="label-inline text text-info">{{ field.label }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="field-wrapper">
+                                                {{ field.errors }}
+                                                <label class="label-inline">{{ field.label }}</label>
+                                        {% endif %}
+                                                <span class="form-help-text">{{ field.help_text }}</span>
+                                                <div class="form-field-body">{{ field }}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+
+                    <input type="submit" value="Finish" class="btn btn-info btn-lg">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

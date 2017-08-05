@@ -1,0 +1,5 @@
+Django==1.4
+django-tastypie # API
+django-registration # account logic, views and workflows
+django-ipware # Geolocation
+django-widget-tweaks # Customizing forms

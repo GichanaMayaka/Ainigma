@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url home %}">Register</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ainigma Surveys<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url home %}">Home</a></li>
+                        <li><a href="{% url home %}">About</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="/survey/1/">Take Survey</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url logout %}">Logout</a></li>
+                        {% else %}
+                            <li class="divider"></li>
+                            <li><a href="{% url login %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% if registered %}
+        <p>Thank you for registering</p>
+
+    {% else %}
+        <!--
+        <div class="col-md-2"></div>
+        <div class="col-md-8 hero-unit">
+            <form id="user_form" method="post" action="{% url register %}" role="form">
+                {%  csrf_token%}
+                <h2>Sign up Here</h2>
+                <div class="form-group">
+                    {% for field in user_form.visible_fields %}
+                        <div class="text text-warning">{{ field.errors }}</div>
+                        <label for="user_form">{{ field.help_text }}</label>
+                        {{ field|add_class:"form-control" }}
+                        <br>
+                    {% endfor %}
+
+                    {% for field in profile_form.visible_fields %}
+                        <div class="text text-warning">{{ field.errors }}</div>
+                        <label for="user_form" class="span2">{{ field.help_text }}</label>
+                        {{ field }}
+                        <br>
+                    {% endfor %}
+                    <br>
+                        <input type="submit" value="Register" name="submit" class="btn btn-primary">
+                    </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        -->
+
+        <form class="form-horizontal" role="form" method="post" action="{% url register %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {% for field in user_form.visible_fields %}
+                <label for="one" class="col-md-2 control-label">{{ field.label_tag }}</label>
+                <div class="col-md-10">
+                    {{ field|add_class:"form-control span4" }}
+                </div>
+                {% endfor %}
+                <br>
+            </div>
+
+            <div class="form-group">
+                {% for field in profile_form.visible_fields %}
+                <label for="two" class="col-md-2 control-label">{{ field.label_tag }}</label>
+                <div class="col-md-10">
+                    {{ field|add_class:"form-control span4" }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </form>
+
+    {% endif %}
+{% endblock %}

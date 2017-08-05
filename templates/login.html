@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url home %}">Ainigma Surveys</a>
+            </div>
+
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url home %}">About Us <span class="sr-only">(current)</span></a></li>
+            <li><a href="{% url home %}">Contact Us</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                <li><a href="{% url home %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/survey/1/">Take Survey</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url logout %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url login %}">Login</a></li>
+                {% endif %}
+                    <li><a href="{% url register %}">Register</a></li>
+                </ul>
+            </li>
+      </ul>
+        <form id="login_form" class="navbar-form navbar-right" role="form" method="post" action="{% url login %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <span class="input-group-addon">Username</span>
+                <input id="username" type="text" class="form-control" name="username" value="" placeholder="Username">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">Password</span>
+                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+    </div>
+  </div>
+</nav>
+
+{% endblock %}

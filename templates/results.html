@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <table class="table table-bodered">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in query_results %}
+        <tr>
+            <td>{{ item.country }}</td>
+            <td>{{ item.comments }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

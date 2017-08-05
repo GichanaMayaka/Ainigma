@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-default">
+            <p class="navbar-brand">{{ survey.survey_title|title }} Survey</p>
+        </div>
+        <div>
+            <!--Right Align-->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Ainigma Surveys <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url home %}">Home</a></li>
+                        <li><a href="{% url survey_detail 1 %}">Take Survey</a></li>
+                        <li class="divider"></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url logout %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url login %}">Login</a></li>
+                        {% endif %}
+                        <li><a href="{% url register %}">Register</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br><br><br>
+
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row-fluid">
+            <div class="col-md-6 col-md-offset-1">
+            <h4>Choose Survey</h4>
+            {% for survey in surveys %}
+                <ol class="list-unstyled">
+                    <label for="survey_number">{{ survey.id }}</label>
+                    <li id="survey_number"><a href="{% url survey_detail survey.id %}">{{ survey.survey_name }}</a></li>
+                </ol>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
